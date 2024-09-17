@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | StudyBuddy</title>
+    <link rel="stylesheet" href="/styles/layout/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6"></script> <!-- Include Fuse.js -->
+    <style>
+        html {
+            /* scroll-behavior: smooth; */
+        }
+
+        /* Adjust search results styling */
+        .search-results {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 550px;
+            /* Smaller width than the search input */
+            z-index: 100;
+            top: 70px;
+            /* Move it down further below the search bar */
+            left: 50%;
+            transform: translateX(-50%);
+            /* Center the div horizontally */
+            display: none;
+            /* Hidden by default */
+            border-radius: 10px;
+            /* Add rounding to all corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Add shadow for better visibility */
+        }
+
+        /* Centering each search result */
+        .search-result-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            text-align: left;
+            /* Align text to the left */
+        }
+
+        .search-result-item:hover {
+            background-color: #f7f7f7;
+        }
+
+        /* Adjust search input and container */
+        .search-input {
+            width: 100%;
+            padding: 10px 40px;
+            border: 1px solid #1c1d1f;
+            border-radius: 50px;
+            /* Rounded corners */
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-container {
+            flex-grow: 1;
+            max-width: 500px;
+            position: relative;
+            /* Keep relative for absolute positioning of results */
+            margin: auto;
+            /* Center the search bar if needed */
+            text-align: center;
+            /* Center content inside */
+        }
+    </style>
+
+</head>
+
+<body>
+    <%- include('../common/header-common',{isLoggedIn:isLoggedIn,categories:categories,courses:courses}) %>
+
+        <!-- Search Results Container -->
+        <div id="search-results" class="search-results"></div>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Learning that gets you</h1>
+                <p>Skills for your present (and your future). Get started with us.</p>
+            </div>
+        </section>
+
+        <%- include('../courses/skills-section',{ categories:categories,courses:courses}) %>
+            <%- include('../common/footer-common') %>
+
+                <!-- Script to expose server data -->
+                <script>
+                    window.searchData = {
+                        categories: <%- JSON.stringify(categories) %>,
+                        courses: <%- JSON.stringify(courses) %>
+        };
+                </script>
+
+                <!--client side javascript for searching -->
+                <script>
+                    // Access the data from the global window object
+                    const { categories, courses } = window.searchData;
+
+                    // Combine categories and courses into a single searchable array
+                    const searchItems = [
+                        ...categories.map(category => ({ name: category.name, id: category.category_id, type: 'Category' })),
+                        ...courses.map(course => ({ name: course.title, id: 'course-' + course.course_id, type: 'Course' }))
+                    ];
+
+                    // Initialize Fuse.js for fuzzy searching
+                    const fuse = new Fuse(searchItems, {
+                        keys: ['name'],
+                        threshold: 0.3 // Adjust for sensitivity
+                    });
+
+                    // Search input, button, and result display elements
+                    const searchInput = document.getElementById('search-input');
+                    const searchResultsContainer = document.getElementById('search-results');
+                    const searchButton = document.getElementById('search-button');
+
+                    // Search function
+                    function performSearch(query) {
+                        if (query.trim() === "") {
+                            searchResultsContainer.style.display = 'none';
+                            return;
+                        }
+
+                        // Perform search using Fuse.js
+                        const results = fuse.search(query);
+                        searchResultsContainer.innerHTML = ''; // Clear previous results
+
+                        if (results.length > 0) {
+                            results.forEach(result => {
+                                const item = document.createElement('div');
+                                item.classList.add('search-result-item');
+                                item.innerHTML = `<strong>${result.item.name}</strong> (${result.item.type})`;
+
+                                // Add click event to scroll to the relevant section
+                                item.addEventListener('click', function () {
+                                    const element = document.getElementById(result.item.id);
+                                    if (element) {
+                                        // Scroll smoothly to the relevant category or course section
+                                        element.scrollIntoView({ behavior: 'smooth' });
+                                    }
+                                    searchResultsContainer.style.display = 'none'; // Hide results after selection
+                                });
+
+                                searchResultsContainer.appendChild(item);
+                            });
+                            searchResultsContainer.style.display = 'block'; // Show results
+                        } else {
+                            searchResultsContainer.innerHTML = '<div>No results found</div>';
+                            searchResultsContainer.style.display = 'block'; // Show 'No results'
+                        }
+                    }
+
+                    // Listen for clicks on the search button
+                    searchButton.addEventListener('click', function () {
+                        const query = searchInput.value;
+                        performSearch(query);
+                    });
+
+                    // Listen for 'Enter' key press in the search input
+                    searchInput.addEventListener('keydown', function (event) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault(); // Prevent form submission
+                            performSearch(this.value);
+                        }
+                    });
+
+                    // Show search results when typing
+                    searchInput.addEventListener('input', function () {
+                        if (this.value.trim() !== "") {
+                            performSearch(this.value); // Perform search if input is not empty
+                        } else {
+                            searchResultsContainer.style.display = 'none'; // Hide if input is cleared
+                        }
+                    });
+
+                    // Click outside to hide search results
+                    document.addEventListener('click', function (event) {
+                        // Check if the click is outside the search container or search results
+                        if (!searchResultsContainer.contains(event.target) && !searchInput.contains(event.target)) {
+                            searchResultsContainer.style.display = 'none';
+                        }
+                    });
+
+                    // Stop propagation for clicks inside the search container and search input
+                    searchInput.addEventListener('click', function (event) {
+                        event.stopPropagation();
+                    });
+                    searchResultsContainer.addEventListener('click', function (event) {
+                        event.stopPropagation();
+                    });
+
+                </script>
+
+</body>
+
+</html>

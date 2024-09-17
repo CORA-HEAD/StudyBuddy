@@ -1,0 +1,284 @@
+<style>
+    /* Header Styling */
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        height: 80px;
+        flex-shrink: 0;
+        /* Increased height */
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e8e9eb;
+    }
+
+    /* Logo Styling */
+    .logo {
+        display: flex;
+        align-items: center;
+        font-size: 29px;
+        font-weight: bold;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+    }
+
+    .logo-icon img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    /* Categories Styling (if needed) */
+    .categories {
+        margin-right: 20px;
+    }
+
+    .categories .nav-item {
+        font-size: 14px;
+        color: #1c1d1f;
+        text-decoration: none;
+    }
+
+    .categories .nav-item:hover {
+        color: #007bff;
+    }
+
+    /* Search Bar Styling */
+    .search-container {
+        flex-grow: 1;
+        max-width: 500px;
+        position: relative;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px 40px;
+        border: 1px solid #1c1d1f;
+        border-radius: 50px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: #333;
+        cursor: pointer;
+    }
+
+    .search-icon i {
+        font-size: 18px;
+        color: #1c1d1f;
+    }
+
+    .search-container button {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    /* Navigation Styling */
+    .nav-items {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-item {
+        margin-left: 20px;
+        /* Increased margin */
+        font-size: 14px;
+        color: #1c1d1f;
+        text-decoration: none;
+        position: relative;
+    }
+
+    .nav-item:hover {
+        color: #007bff;
+    }
+
+    .nav-item i {
+        font-size: 18px;
+    }
+
+    /* General Button Styling */
+    .button {
+        padding: 9px 14px;
+        border: 1px solid #1c1d1f;
+        background-color: white;
+        color: #1c1d1f;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 7px;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: rgb(198, 195, 195);
+    }
+
+    /* Dark Button Styling */
+    .button.dark {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+
+    .button.dark:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    /* More Specific Button Selection */
+    .nav-items .button {
+        font-size: 14px;
+        margin-left: 20px;
+        /* Increased margin */
+        padding: 10px 20px;
+        /* Increased padding */
+    }
+
+    .nav-items .button:hover {
+        background-color: rgba(198, 195, 195, 0.8);
+        color: #1c1d1f;
+    }
+
+    .nav-items .button.dark {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white
+    }
+
+    .nav-items .button.dark:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    /* Specificity for Different Sections */
+    .nav-items .button {
+        font-size: 14px;
+        margin-left: 20px;
+        /* Increased margin */
+        padding: 10px 20px;
+        /* Increased padding */
+    }
+
+    .search-container button {
+        padding: 0;
+        border: none;
+        background: none;
+    }
+
+    .user-info .button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    /* Specific Button States */
+    .nav-items .button:active {
+        background-color: #e0e0e0;
+    }
+
+    .nav-items .button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+
+    /* User Info and Dropdown Menu Styling */
+    .user-info {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .user-photo {
+        margin-left: 20px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        border: 1px solid #f0efef;
+        cursor: pointer;
+    }
+
+    /* Dropdown Menu */
+    .user-menu {
+        display: none;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        background-color: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 10px;
+        width: 150px;
+    }
+
+    .user-menu-item {
+        display: block;
+        padding: 10px 20px;
+        color: #333;
+        text-decoration: none;
+    }
+
+    .user-menu-item:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* Show the dropdown menu on hover */
+    .user-photo:hover+.user-menu,
+    .user-menu:hover {
+        display: block;
+    }
+</style>
+
+<header class="header">
+    <a href="/" class="logo">
+        <div class="logo-icon"><img src="/images/logo.png" alt="icon"></div>
+        StudyBuddy
+    </a>
+    <!-- <div class="categories"><a href="#" class="nav-item ">Categories</a></div> -->
+    <div class="search-container">
+        <input type="text" id="search-input" name="query" class="search-input" placeholder="Search for anything" />
+        <span class="search-icon">
+            <button type="button" id="search-button" style="background: none; border: none; cursor: pointer;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </span>
+    </div>
+    <div>
+        <nav class="nav-items">
+            <a href="/cart/view" class="nav-item"><i class="fa-solid fa-cart-shopping"></i></a>
+            <div>
+                <% if (isLoggedIn) { %>
+                    <!-- User is logged in  -->
+
+                    <div class="nav-item user-info">
+                        <a href="/course/enrollments/All" class="nav-item enrollments">My Enrollments</a>
+                        <img src="https://media.istockphoto.com/vectors/male-user-icon-vector-id517998264?k=20&m=517998264&s=612x612&w=0&h=pdEwtkJlZsIoYBVeO2Bo4jJN6lxOuifgjaH8uMIaHTU="
+                            alt="image" class="user-photo">
+                        <div class="user-menu">
+                            <a href="/user/profile" class="user-menu-item">My Profile</a>
+                            <a href="/user/logout" class="user-menu-item">Log Out</a>
+                        </div>
+                    </div>
+                    <% } else { %>
+                        <!-- User is not logged in  -->
+                        <a href="/auth/signup" class="nav-item button">Sign up</a>
+                        <a href="/auth/login" class="nav-item button dark">Log in</a>
+                        <% } %>
+            </div>
+        </nav>
+    </div>
+
+</header>
+<script src="https://kit.fontawesome.com/747e4c0be3.js" crossorigin="anonymous"></script>

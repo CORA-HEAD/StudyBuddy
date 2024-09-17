@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Error</title>
+</head>
+<body>
+    <h1>Oops! Something went wrong</h1>
+    <p><%= message %></p>
+    <% if (error) { %>
+        <p>Error details: <%= error %></p>
+    <% } %>
+    <a href="/admin/videos/upload">Try uploading again</a>
+    <a href="/admin/videos/all">View all videos</a>
+</body>
+</html>

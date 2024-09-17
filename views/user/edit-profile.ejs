@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 60%;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section.welcome {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        section.welcome h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #007bff;
+        }
+
+        .profile-details {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .profile-details h2 {
+            font-size: 1.5em;
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .profile-details p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            font-size: 1em;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .form-actions button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .form-actions button:active {
+            background-color: #004494;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../common/common_auth_header/header') %>
+
+    <main>
+        <div class="container">
+            <section class="welcome">
+                <h1>Edit Profile</h1>
+                <% if (success_msg.length) { %>
+                    <div class="alert alert-success">
+                        <%= success_msg %>
+                    </div>
+                <% } %>
+                <% if (error_msg.length) { %>
+                    <div class="alert alert-danger">
+                        <%= error_msg %>
+                    </div>
+                <% } %>
+            </section>
+
+            <section class="profile-details">
+                <form id="editProfileForm" action="/user/profile/edit" method="post" onsubmit="return validatePhoneNumber()">
+                    <div>
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" value="<%= user.name %>" required>
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone" value="<%= user.phone %>">
+                        <div id="phoneError" class="error">Please enter a valid phone number in the format +91XXXXXXXXXX</div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit">Save Changes</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <%- include('../common/footer-common') %>
+
+    <script>
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById("phone");
+            const phoneError = document.getElementById("phoneError");
+            const phonePattern = /^\+91\d{10}$/;
+
+            if (!phonePattern.test(phoneInput.value)) {
+                phoneError.textContent = "Please enter a valid phone number in the format +91XXXXXXXXXX";
+                phoneError.style.display = "block";
+                return false;
+            } else {
+                phoneError.textContent = "";
+                phoneError.style.display = "none";
+                return true;
+            }
+        }
+    </script>
+</body>
+
+</html>

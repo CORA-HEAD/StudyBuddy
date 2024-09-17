@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | StudyBuddy</title>
+    <link rel="stylesheet" href="/styles/layout/contact-us.css">
+</head>
+<body>
+    <%- include('../common/header-other',{ isLoggedIn:isLoggedIn}) %>
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to reach out to us!</p>
+        <div class="contact-info">
+            <p><strong>Email:</strong> <a href="mailto:anmol.223067@gmail.com">StudyBuddy@gmail.com</a></p>
+            <p><strong>Phone:</strong> +1 (800) 123-4567</p>
+            <p><strong>Address:</strong> 123 Education Lane, Learning City, LC 12345</p>
+            <p><strong>Business Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM</p>
+        </div>
+    </div>
+    <%- include('../common/footer-common');%>
+</body>
+</html>

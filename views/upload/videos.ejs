@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Video</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px; /* You can set a max-width for large screens if desired */
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-wrapper {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #price-info {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .back-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+           
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .header-container h1 {
+            text-align: center;
+            margin: 0;
+            flex-grow: 1;
+            margin-right: 100px;
+        }
+
+        @media (max-width: 768px) {
+            form {
+                padding: 15px;
+            }
+
+            h1,
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .back-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+                top: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header-container">
+            <!-- Back to Dashboard button -->
+            <a href="/admin/dashboard" class="back-btn">Back to Dashboard</a>
+            <h1>Upload a Video and Create a Course</h1>
+        </div>
+
+        <div class="form-wrapper">
+            <form action="/admin/videos/upload" method="POST" enctype="multipart/form-data">
+                <!-- Course Details -->
+                <label for="category">Select a Category:</label>
+                <select name="category_id" id="category" required>
+                    <% if (categories && categories.length > 0) { %>
+                        <% categories.forEach(function(category) { %>
+                            <option value="<%= category.category_id %>">
+                                <%= category.name %>
+                            </option>
+                        <% }); %>
+                    <% } else { %>
+                        <option value="">No categories available</option>
+                    <% } %>
+                </select>
+
+                <h2>Course Details</h2>
+                <label for="course_image">Course Image (optional):</label>
+                <input type="file" name="course_image" id="course_image" accept="image/*">
+
+                <label for="course_title">Course Title:</label>
+                <input type="text" name="course_title" id="course_title" required>
+
+                <label for="course_description">Course Description:</label>
+                <textarea name="course_description" id="course_description" rows="4" cols="50" required></textarea>
+
+                <label for="course_price">Course Price:</label>
+                <input type="number" name="course_price" id="course_price" step="0.01" min="0" value="0.00" required>
+                <span id="price-info">(A price of 0.00 indicates that the course is free. If the course is paid, please enter the price in dollars.)</span>
+
+                <label for="level">Select Course Level:</label>
+                <select name="level" id="level" required>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+
+                <!-- Video Details -->
+                <h2>Video Details</h2>
+                <label for="video_title">Video Title:</label>
+                <input type="text" name="video_title" id="video_title" required>
+
+                <label for="video_file">Choose a Video File:</label>
+                <input type="file" name="video_file" id="video_file" required>
+
+                <label for="resolution">Resolution (optional):</label>
+                <input type="text" name="resolution" id="resolution" placeholder="e.g., 1080p">
+
+                <label for="duration">Duration in minutes (optional):</label>
+                <input type="number" name="duration" id="duration" placeholder="Duration in minutes">
+
+                <button type="submit">Upload Video and Create Course</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

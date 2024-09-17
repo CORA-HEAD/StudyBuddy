@@ -1,0 +1,81 @@
+Web Development (Category ID: 1)
+
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('Web Development Bootcamp', 'Comprehensive course covering HTML, CSS, and JavaScript.', 'beginner', 'path/to/webdev_image1.png', 49.99, 1),
+('Advanced JavaScript', 'Deep dive into advanced JavaScript concepts.', 'advanced', 'path/to/webdev_image2.png', 79.99, 1),
+('Responsive Web Design', 'Learn how to create responsive websites.', 'intermediate', 'path/to/webdev_image3.png', 59.99, 1),
+('HTML & CSS Fundamentals', 'Foundational course on HTML and CSS.', 'beginner', 'path/to/webdev_image4.png', 39.99, 1),
+('Full-Stack Web Development', 'Become a full-stack developer with this course.', 'advanced', 'path/to/webdev_image5.png', 99.99, 1);
+
+
+
+
+Data Science (Category ID: 2)
+
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('Data Science for Beginners', 'Introduction to data science concepts and tools.', 'beginner', 'path/to/datascience_image1.png', 59.99, 2),
+('Python for Data Analysis', 'Learn Python programming for data analysis.', 'intermediate', 'path/to/datascience_image2.png', 69.99, 2),
+('Machine Learning with Python', 'An introduction to machine learning using Python.', 'advanced', 'path/to/datascience_image3.png', 89.99, 2),
+('Data Visualization with R', 'Visualize data using R programming.', 'intermediate', 'path/to/datascience_image4.png', 49.99, 2),
+('Statistics for Data Science', 'Master statistics for data science applications.', 'beginner', 'path/to/datascience_image5.png', 39.99, 2);
+
+
+
+Cloud Computing (Category ID: 3)
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('Cloud Computing Essentials', 'Learn the fundamentals of cloud computing.', 'beginner', 'path/to/cloudcomputing_image1.png', 79.99, 3),
+('AWS Certified Solutions Architect', 'Prepare for AWS certification with this course.', 'advanced', 'path/to/cloudcomputing_image2.png', 99.99, 3),
+('Introduction to Azure', 'Get started with Microsoft Azure.', 'beginner', 'path/to/cloudcomputing_image3.png', 69.99, 3),
+('Google Cloud Platform Fundamentals', 'Learn the basics of Google Cloud Platform.', 'intermediate', 'path/to/cloudcomputing_image4.png', 59.99, 3),
+('DevOps on AWS', 'Implement DevOps practices on AWS.', 'advanced', 'path/to/cloudcomputing_image5.png', 89.99, 3);
+
+
+
+
+Cybersecurity (Category ID: 4)
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('Cybersecurity Basics', 'Protect your data with cybersecurity basics.', 'beginner', 'path/to/cybersecurity_image1.png', 39.99, 4),
+('Network Security Fundamentals', 'Learn the fundamentals of network security.', 'intermediate', 'path/to/cybersecurity_image2.png', 49.99, 4),
+('Ethical Hacking', 'An introduction to ethical hacking and penetration testing.', 'advanced', 'path/to/cybersecurity_image3.png', 79.99, 4),
+('Cybersecurity Incident Response', 'Learn how to respond to cybersecurity incidents.', 'intermediate', 'path/to/cybersecurity_image4.png', 59.99, 4),
+('Advanced Threat Detection', 'Detect and respond to advanced cybersecurity threats.', 'advanced', 'path/to/cybersecurity_image5.png', 89.99, 4);
+
+
+DevOps (Category ID: 5)
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('DevOps Fundamentals', 'An introductory course on DevOps practices.', 'beginner', 'path/to/devops_image1.png', 69.99, 5),
+('Continuous Integration with Jenkins', 'Learn how to implement CI/CD with Jenkins.', 'intermediate', 'path/to/devops_image2.png', 79.99, 5),
+('Docker for DevOps', 'Master Docker for DevOps applications.', 'advanced', 'path/to/devops_image3.png', 89.99, 5),
+('Kubernetes for Beginners', 'Get started with Kubernetes for container orchestration.', 'beginner', 'path/to/devops_image4.png', 59.99, 5),
+('Infrastructure as Code with Terraform', 'Automate infrastructure with Terraform.', 'intermediate', 'path/to/devops_image5.png', 99.99, 5);
+
+
+
+Mobile Development (Category ID: 6)
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('Mobile Development with Flutter', 'Build mobile apps using Flutter.', 'intermediate', 'path/to/mobiledev_image1.png', 89.99, 6),
+('iOS App Development', 'Learn how to develop apps for iOS.', 'beginner', 'path/to/mobiledev_image2.png', 79.99, 6),
+('Android Development for Beginners', 'Get started with Android app development.', 'beginner', 'path/to/mobiledev_image3.png', 59.99, 6),
+('React Native for Mobile Development', 'Build mobile apps using React Native.', 'intermediate', 'path/to/mobiledev_image4.png', 69.99, 6),
+('Advanced Flutter Techniques', 'Master advanced techniques in Flutter.', 'advanced', 'path/to/mobiledev_image5.png', 99.99, 6);
+
+
+
+AI & Machine Learning (Category ID: 7)
+INSERT INTO `courses` (`title`, `description`, `level`, `image_path`, `price`, `category_id`)
+VALUES
+('AI & Machine Learning Introduction', 'Introduction to AI and Machine Learning concepts.', 'beginner', 'path/to/ai_ml_image1.png', 99.99, 7),
+('Deep Learning with TensorFlow', 'Learn deep learning using TensorFlow.', 'advanced', 'path/to/ai_ml_image2.png', 119.99, 7),
+('Natural Language Processing with Python', 'Introduction to NLP using Python.', 'intermediate', 'path/to/ai_ml_image3.png', 89.99, 7),
+('AI for Everyone', 'A non-technical introduction to AI concepts.', 'beginner', 'path/to/ai_ml_image4.png', 49.99, 7),
+('Machine Learning Engineering', 'Build and deploy machine learning models.', 'advanced', 'path/to/ai_ml_image5.png', 109.99, 7);
+
+
+
+

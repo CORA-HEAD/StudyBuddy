@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Videos</title>
+    <style>
+        .video-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .video-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Uploaded Videos</h1>
+    
+    <div class="video-list">
+        <% if (videos && videos.length > 0) { %>
+            <% videos.forEach(function(video) { %>
+                <div class="video-item">
+                    <h3><%= video.title %></h3>
+                    <p>Course: <%= video.course ? video.course.title : 'Not assigned' %></p>
+                    <p>Resolution: <%= video.resolution || 'Not specified' %></p>
+                    <p>Duration: <%= video.duration ? video.duration + ' minutes' : 'Not specified' %></p>
+                    <video width="100%" controls>
+                        <source src="<%= video.file_path %>" type="video/<%= video.format %>">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No videos uploaded yet.</p>
+        <% } %>
+    </div>
+
+    <a href="/admin/videos/upload">Upload New Video</a>
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= course.title %> - StudyBuddy
+    </title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+
+
+    <!-- <link rel="icon" href="/images/logo.png" type="image/x-icon"> -->
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #202124;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Course Header */
+        .course-header {
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .course-header-content {
+            max-width: 60%;
+        }
+
+        .course-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .course-description {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .course-level,
+        .course-price {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #5f6368;
+        }
+
+        .course-image {
+            max-width: 35%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+
+        /* Targeting the enroll button specifically within the course-header */
+        .course-header .enroll-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .course-header .enroll-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Video Section */
+        .course-videos {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .video-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .video-item h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #202124;
+        }
+
+        .video-item video {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-resolution,
+        .video-duration {
+            font-size: 1rem;
+            color: #5f6368;
+        }
+
+        .related-courses {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+
+            flex-direction: column;
+        }
+
+        .related-courses h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+            /* Center-aligns the heading */
+        }
+
+        .related-course-items-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allows items to wrap onto multiple lines */
+            gap: 20px;
+            /* Adds space between items */
+        }
+
+        .related-course-item {
+            display: flex;
+            align-items: center;
+            flex: 1 1 calc(25% - 20px);
+
+            box-sizing: border-box;
+
+        }
+
+        .related-course-item img {
+            max-width: 120px;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .related-course-item h4 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .related-course-item p {
+            font-size: 1rem;
+        }
+
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            font-size: 2rem;
+        }
+
+
+        .star-rating input[type="radio"] {
+            display: none;
+            /* Hide radio buttons */
+        }
+
+        .star-rating label {
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.3s;
+        }
+
+        .star-rating label:before {
+            content: '★';
+            padding: 5px;
+        }
+
+        /* Apply color to stars based on hover and checked states */
+        .star-rating input[type="radio"]:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: #ffc107;
+        }
+
+
+        /* User Reviews */
+        .user-reviews {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .user-reviews h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .user-reviews form {
+            margin-bottom: 20px;
+        }
+
+        .user-reviews form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .user-reviews form input,
+        .user-reviews form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Specific styles for the form button within the user reviews section */
+        .user-reviews form button {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, background-image 0.3s;
+            background-image: linear-gradient(to right, #17a2b8, #117a8b);
+        }
+
+        .user-reviews form button:hover {
+            background-color: #117a8b;
+            background-image: linear-gradient(to right, #117a8b, #17a2b8);
+        }
+
+        .user-reviews ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .user-reviews ul li {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .user-reviews ul li:last-child {
+            border-bottom: none;
+        }
+
+        .user-reviews ul li strong {
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .user-reviews ul li p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Rating Stars for Display */
+        .rating-stars {
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        .rating-stars::before {
+            content: '★★★★★';
+            /* Full set of stars */
+            letter-spacing: 2px;
+            color: #dddd;
+        }
+
+        .rating-stars[data-rating="1"]::before {
+            color: #ffc107;
+            content: '★☆☆☆☆';
+        }
+
+        .rating-stars[data-rating="2"]::before {
+            color: #ffc107;
+            content: '★★☆☆☆';
+        }
+
+        .rating-stars[data-rating="3"]::before {
+            color: #ffc107;
+            content: '★★★☆☆';
+        }
+
+        .rating-stars[data-rating="4"]::before {
+            color: #ffc107;
+            content: '★★★★☆';
+        }
+
+        .rating-stars[data-rating="5"]::before {
+            color: #ffc107;
+            content: '★★★★★';
+        }
+
+
+
+
+
+        /* Social Sharing */
+        .social-sharing {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .social-sharing a {
+            margin: 0 10px;
+            font-size: 1.5rem;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-sharing a:hover {
+            color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .course-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .course-header-content {
+                max-width: 100%;
+            }
+
+            .course-image {
+                max-width: 100%;
+                margin-top: 20px;
+            }
+
+            .video-item video {
+                max-height: 200px;
+            }
+        }
+
+        .course-link {
+            text-decoration: none;
+            color: inherit;
+            /* Inherits color from parent, so no change in appearance */
+            display: block;
+            /* Ensures the entire card is clickable */
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .course-link:hover {
+            background-color: #f0f0f0;
+            /* Adds a subtle background change on hover */
+        }
+
+
+
+        #video-player {
+            width: 100%;
+            height: auto;
+        }
+
+        .custom-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .custom-controls button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 5px;
+            /* Add space between buttons */
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('./common/header-common',{ isLoggedIn:isLoggedIn}) %>
+        <div class="container">
+            <% if (success_msg) { %>
+            <div class="alert alert-success">
+                <%= success_msg %>
+            </div>
+            <% } %>
+    
+            <% if (error_msg) { %>
+            <div class="alert alert-danger">
+                <%= error_msg %>
+            </div>
+            <% } %>
+            <!-- Course Header -->
+            <div class="course-header">
+                <div class="course-header-content">
+                    <h1 class="course-title">
+                        <%= course.title %>
+                    </h1>
+                    <p class="course-description">
+                        <%= course.description %>
+                    </p>
+                    <p class="course-level"><strong>Level:</strong>
+                        <%= course.level.charAt(0).toUpperCase() + course.level.slice(1) %>
+                    </p>
+                    <p class="course-price">
+                        <strong>Price:</strong>
+                        <%= course.price==='0.00' ? 'Free' : '$ ' + course.price %>
+                    </p>
+                    <!-- Enrollment Button -->
+                    <% if (!isEnrolled) { %>
+                        <form action="/course/add-to-cart" method="POST" style="margin-top: 20px;">
+                            <input type="hidden" name="course_id" value="<%= course.course_id %>">
+                            <button type="submit" class="enroll-button">
+                                <%= isFree ? 'Enroll Now' : 'Added to cart' %>
+                            </button>
+                        </form>
+                        <% } else { %>
+                            <p>You are already enrolled in this course.</p>
+                            <% } %>
+
+                </div>
+                <img src="<%= course.image_path %>" alt="<%= course.title %>" class="course-image">
+            </div>
+
+            <!-- Video Section -->
+            <div class="course-videos">
+                <% if (course.videos && course.videos.length> 0) { %>
+                    <% course.videos.forEach(function(video) { %>
+                        <div class="video-item">
+                            <h2>
+                                <%= video.title %>
+                            </h2>
+                            <% if (isEnrolled) { %>
+                                <video id="player" playsinline controls>
+                                    <source src="<%= video.file_path %>" type="video/<%= video.format %>" />
+                                </video>
+                                <p class="video-resolution">Resolution: <%= video.resolution %>
+                                </p>
+                                <p class="video-duration">Duration: <%= video.duration %> minutes</p>
+                                <% } else { %>
+                                    <p>Please enroll to watch this video.</p>
+                                    <% } %>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <p>No videos available for this course.</p>
+                                <% } %>
+            </div>
+
+            <!-- Related Courses -->
+            <div class="related-courses">
+                <h3>More Courses in <%= course.category.name %>
+                </h3>
+                <div class="related-course-items-container">
+                    <% if (relatedCourses && relatedCourses.length> 0) { %>
+                        <% relatedCourses.forEach(function(relatedCourse) { %>
+                            <div class="related-course-item">
+                                <a href="/course/<%= relatedCourse.course_id %>" class="course-link">
+                                    <img src="<%= relatedCourse.image_path %>" alt="<%= relatedCourse.title %>">
+                                    <div>
+                                        <h4>
+                                            <%= relatedCourse.title %>
+                                        </h4>
+                                        <p>
+                                            <%= relatedCourse.description %>
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>No related courses available.</p>
+                                    <% } %>
+                </div>
+            </div>
+
+            <!-- User Reviews -->
+            <!-- User Reviews -->
+            <div class="user-reviews">
+                <h3>User Reviews</h3>
+
+                <% if (isEnrolled && !hasReviewed) { %>
+                    <!-- Review form appears only if the user is enrolled and has not reviewed the course yet -->
+                    <form action="/course/reviews" method="POST">
+                        <input type="hidden" name="course_id" value="<%= course.course_id %>">
+                        <label for="rating">Rating:</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5" title="5 stars"></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" title="4 stars"></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" title="3 stars"></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" title="2 stars"></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1" title="1 star"></label>
+                        </div>
+
+                        <label for="review">Review:</label>
+                        <textarea name="review" rows="4"></textarea>
+                        <button type="submit">Submit Review</button>
+                    </form>
+                    <% } else if (isEnrolled && hasReviewed) { %>
+                        <!-- Message indicating the user has already reviewed the course -->
+                        <p>You have already submitted a review for this course.</p>
+                        <% } %>
+
+                            <ul>
+                                <% reviews.forEach(function(review) { %>
+                                    <li>
+                                        <strong>
+                                            <%= review.user ? review.user.name : 'Anonymous' %>:
+                                        </strong>
+                                        <div class="rating-stars" data-rating="<%= review.rating %>">
+                                            <!-- Here you can add stars rendering logic if needed -->
+                                        </div>
+                                        <p>
+                                            <%= review.review %>
+                                        </p>
+                                        <p>
+                                            <%= new Date(review.created_at).toLocaleDateString() %>
+                                        </p>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+            </div>
+
+        </div>
+        <%- include('./common/footer-common') %>
+            <script>
+                const player = new Plyr('#player', {
+                    controls: [
+                        'play-large', 'play', 'progress', 'current-time',
+                        'mute', 'volume', 'fullscreen'
+                    ],
+                    fullscreen: {
+                        enabled: true,
+                        fallback: true, // Ensures fullscreen works on all browsers
+                        iosNative: true // Uses native fullscreen on iOS
+                    }
+                });
+                // Handle fullscreen mode for the video
+                document.addEventListener('fullscreenchange', () => {
+                    const playerElement = document.getElementById('player');
+
+                    if (document.fullscreenElement) {
+                        // Entering fullscreen: ensure video fills the screen
+                        playerElement.style.width = '100%';
+                        playerElement.style.height = '100%';
+                        playerElement.style.objectFit = 'cover'; // Video fills the entire screen
+                    } else {
+                        // Exiting fullscreen: reset styles
+                        playerElement.style.width = '';
+                        playerElement.style.height = '';
+                        playerElement.style.objectFit = '';
+                    }
+                });
+
+                // For browsers that use webkit-prefixed fullscreen API
+                document.addEventListener('webkitfullscreenchange', () => {
+                    const playerElement = document.getElementById('player');
+
+                    if (document.webkitFullscreenElement) {
+                        // Entering fullscreen: ensure video fills the screen
+                        playerElement.style.width = '100%';
+                        playerElement.style.height = '100%';
+                        playerElement.style.objectFit = 'cover'; // Video fills the entire screen
+                    } else {
+                        // Exiting fullscreen: reset styles
+                        playerElement.style.width = '';
+                        playerElement.style.height = '';
+                        playerElement.style.objectFit = '';
+                    }
+                });
+            </script>
+</body>
+
+</html>

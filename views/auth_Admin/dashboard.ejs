@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | StudyBuddy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 70%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #007bff;
+        }
+
+        .profile-details {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .profile-details h2 {
+            font-size: 1.8em;
+            color: #007bff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .profile-details p {
+            font-size: 1.2em;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .profile-actions {
+            margin-bottom: 40px;
+        }
+
+        .profile-actions h2 {
+            font-size: 1.6em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .profile-actions ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .profile-actions li {
+            margin: 0;
+        }
+
+        .profile-actions a {
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .profile-actions a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .profile-actions a:active {
+            background-color: #004494;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form button {
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #d9534f;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        form button:hover {
+            background-color: #c9302c;
+            transform: scale(1.05);
+        }
+
+        form button:active {
+            background-color: #ac2925;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+        </header>
+
+        <div class="profile-details">
+            <h2>Welcome, <%= admin.name %>
+            </h2>
+            <p>Email: <%= admin.email %>
+            </p>
+        </div>
+
+        <div class="profile-actions">
+            <h2>Dashboard Actions</h2>
+            <ul>
+                <li><a href="/admin/videos/upload">Upload Courses</a></li>
+                <li><a href="/admin/remove/courses">Remove Courses</a></li>
+            </ul>
+        </div>
+
+        <form action="/admin/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+   
+</body>
+
+</html>

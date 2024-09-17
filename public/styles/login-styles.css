@@ -1,0 +1,98 @@
+ body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 900px; /* Increase the max-width for a larger container */
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px; /* Increase padding for more spacious feel */
+    margin: 30px auto; /* Add more margin to separate it from the top and bottom */
+}
+
+.image-box {
+    width: 45%; /* 35% width for the image box */
+    margin-right: 40px; /* Space between image and form */
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.sign-in-box {
+    width: 55%; /* 65% width for the sign-in box */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+    
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 90%;
+    padding: 12px; /* Padding for input fields */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px; /* Font size for input fields */
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px; /* Padding for the button */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Font size for the button */
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.links a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+
+

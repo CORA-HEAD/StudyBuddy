@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cart - StudyBuddy</title>
+    <!-- <link rel="stylesheet" href="/styles/style.css"> -->
+    <style>
+        /* General Styles */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #007bff;
+            text-align: center;
+            margin-bottom:20px ;
+        }
+
+        h2,
+        h3 {
+            color: #007bff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul li h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        ul li p {
+            margin: 5px 0;
+        }
+
+        /* Cart Page Button Styles */
+        .cart-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cart-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .cart-button:active {
+            background-color: #004494;
+        }
+
+        .cart-button.dark {
+            background-color: #dc3545;
+        }
+
+        .cart-button.dark:hover {
+            background-color: #c82333;
+        }
+
+        .cart-button.dark:active {
+            background-color: #bd2130;
+        }
+
+        /* Payment Button Styles */
+        .complete-payment-button .cart-button {
+            background-color: #28a745;
+        }
+
+        .complete-payment-button .cart-button:hover {
+            background-color: #218838;
+        }
+
+        .complete-payment-button .cart-button:active {
+            background-color: #1e7e34;
+        }
+
+        /* Total Amount Styles */
+        .total-amount-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .complete-payment-button {
+            margin-left: 20px;
+        }
+
+       /* No Courses Styles */
+.no-courses-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+    font-size: 18px;
+    margin: 40px 0;
+    height: 200px; /* Add height to center the content vertically */
+    text-align: center;
+}
+
+.no-courses-message a {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.no-courses-message a:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.no-courses-message a:active {
+    background-color: #004494;
+}
+
+    </style>
+</head>
+
+<body>
+    <%- include('./common/header-other',{ isLoggedIn:isLoggedIn}) %>
+    <main>
+        <h1>Shopping Cart</h1>
+
+        <% if (courses.length > 0) { %>
+            <h2>Selected Courses</h2>
+            <ul>
+                <% courses.forEach(course => { %>
+                    <li>
+                        <div>
+                            <h3><%= course.title %></h3>
+                            <p><strong>Description:</strong> <%= course.description || 'No description available' %></p>
+                            <p><strong>Price:</strong> $<%= course.price %></p>
+                            <p><strong>Level:</strong> <%= course.level %></p>
+                        </div>
+                        <form action="/cart/remove" method="post" style="margin-left: 20px;">
+                            <input type="hidden" name="course_id" value="<%= course.course_id %>">
+                            <button type="submit" class="cart-button dark">Remove</button>
+                        </form>
+                    </li>
+                <% }) %>
+            </ul>
+
+            <div class="total-amount-container">
+                <div class="total-amount">Total Amount: $ <%= totalAmount.toFixed(2) %></div>
+                <form action="/cart/payment" method="post" class="complete-payment-button">
+                    <% courses.forEach(course => { %>
+                        <input type="hidden" name="course_ids" value="<%= course.course_id %>">
+                    <% }) %>
+                    <button type="submit" class="cart-button">Complete Payment</button>
+                </form>
+            </div>
+        <% } else { %>
+            <p class="no-courses-message">No courses in the cart. <a href="/" class="cart-button">Browse Courses</a></p>
+        <% } %>
+    </main>
+
+    <%- include('./common/footer-common') %>
+</body>
+
+</html>
